@@ -6,10 +6,11 @@ import { AppComponent } from './app.component';
 import { AuthComponent } from './auth/auth/auth.component';
 import { SharedModule } from './shared';
 import { AppShellComponent } from './app-shell/app-shell/app-shell.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent, AuthComponent, AppShellComponent],
-  imports: [BrowserModule, AppRoutingModule, SharedModule],
+  imports: [BrowserModule, AppRoutingModule, SharedModule, BrowserAnimationsModule],
   providers: [],
   bootstrap: [AppComponent],
 })
