@@ -15,22 +15,21 @@ export class AuthComponent {
   form: FormGroup;
   hide = true;
 
-  constructor(
-    private router: Router,
-    private snackbar: MatSnackBar
-  ) {
+  constructor(private router: Router, private snackbar: MatSnackBar) {
     this.form = new FormGroup({
       login: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),
     });
   }
 
-  submit(): void {
+  registration(): void {}
+
+  auth(): void {
     if (this.form.invalid) {
       return;
     }
 
-    sessionStorage.setItem("auth", this.form.value.login);
+    sessionStorage.setItem('auth', this.form.value.login);
 
     //проверка на логин/пароль
     this.router.navigate(['/']);
