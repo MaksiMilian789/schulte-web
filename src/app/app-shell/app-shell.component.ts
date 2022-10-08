@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { map, Observable } from 'rxjs';
 
 @Component({
   templateUrl: './app-shell.component.html',
