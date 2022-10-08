@@ -31,7 +31,10 @@ export class AuthComponent {
     }
 
     sessionStorage.setItem("auth", this.form.value.login);
-    
+
+    //проверка на логин/пароль
+    this.router.navigate(['/']);
+
     /*const formState: { login: string; password: string } = this.form.value;
     this.form.disable();
     this.authService
