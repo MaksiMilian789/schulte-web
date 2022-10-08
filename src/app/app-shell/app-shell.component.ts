@@ -7,14 +7,12 @@ import { map, Observable } from 'rxjs';
   styleUrls: ['./app-shell.component.scss'],
 })
 export class AppShellComponent {
-  fio = "admin";
+  fio = 'admin';
 
-  constructor( private router: Router) {
-
-  }
+  constructor(private router: Router) {}
 
   logout(): void {
-    //this.authService.logout();
+    sessionStorage.removeItem('auth');
     this.router.navigate(['/auth']);
   }
 

@@ -7,11 +7,17 @@ import { AuthComponent } from './auth/auth.component';
 import { SharedModule } from './shared';
 import { AppShellComponent } from './app-shell/app-shell.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthGuard } from './auth/auth.guard';
 
 @NgModule({
   declarations: [AppComponent, AuthComponent, AppShellComponent],
-  imports: [BrowserModule, AppRoutingModule, SharedModule, BrowserAnimationsModule],
-  providers: [],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    SharedModule,
+    BrowserAnimationsModule,
+  ],
+  providers: [AuthGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

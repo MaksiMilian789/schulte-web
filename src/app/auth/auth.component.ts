@@ -30,6 +30,8 @@ export class AuthComponent {
       return;
     }
 
+    sessionStorage.setItem("auth", this.form.value.login);
+    
     /*const formState: { login: string; password: string } = this.form.value;
     this.form.disable();
     this.authService
