@@ -8,9 +8,10 @@ import { SharedModule } from './shared';
 import { AppShellComponent } from './app-shell/app-shell.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthGuard } from './auth/auth.guard';
+import { TestComponent } from './test/test.component';
 
 @NgModule({
-  declarations: [AppComponent, AuthComponent, AppShellComponent],
+  declarations: [AppComponent, AuthComponent, AppShellComponent, TestComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

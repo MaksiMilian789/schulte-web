@@ -1,0 +1,9 @@
+<div class="container">
+    <div>
+        <div *ngFor="let row of matrix">
+            <button mat-raised-button *ngFor="let cell of row" class="matrix-button">
+                {{cell}}
+            </button>
+        </div>
+    </div>
+</div>
