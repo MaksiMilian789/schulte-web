@@ -1,0 +1,36 @@
+<mat-toolbar color="primary" class="toolbar mat-elevation-z4">
+  <button mat-icon-button (click)="drawer.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>Сервис тестирования по методике Шульте</span>
+  <div class="spacer"></div>
+  <!--><span *ngIf="userFio$ | async as fio">{{ fio }}</span><-->
+  <span>{{fio}}</span>
+  <button mat-icon-button (click)="logout()" matTooltip="Выйти">
+    <mat-icon>logout</mat-icon>
+  </button>
+</mat-toolbar>
+<mat-drawer-container class="example-container" autosize>
+  <mat-drawer #drawer class="sidenav mat-elevation-z4" mode="side" opened>
+    <div class="drawer-content">
+      <mat-nav-list>
+        <a mat-list-item [routerLink]="['test']" routerLinkActive="active">
+          <mat-icon matListIcon>work</mat-icon>
+          <p matLine>Тестирование</p>
+        </a>
+        <a mat-list-item [routerLink]="['results']" routerLinkActive="active">
+          <mat-icon matListIcon>inventory</mat-icon>
+          <p matLine>Свои результаты</p>
+        </a>
+        <a mat-list-item [routerLink]="['statistics']" routerLinkActive="active">
+          <mat-icon matListIcon>inventory</mat-icon>
+          <p matLine>Статистика</p>
+        </a>
+      </mat-nav-list>
+    </div>
+  </mat-drawer>
+
+  <div class="sidenav-content">
+    <router-outlet></router-outlet>
+  </div>
+</mat-drawer-container>
