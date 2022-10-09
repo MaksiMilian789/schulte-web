@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { SharedModule } from '../shared.module';
+import { SharedModule } from '../../shared.module';
 import { ConfirmationDialogComponent } from './confirmation-dialog.component';
 
 @NgModule({

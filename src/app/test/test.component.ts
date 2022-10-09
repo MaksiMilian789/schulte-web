@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import { timer } from 'rxjs';
-import { ConfirmationDialogComponent } from '../shared/confirmation-dialog';
-import { SimpleDialogComponent } from '../shared/simple-dialog';
+import { ConfirmationDialogComponent } from '../shared/components/confirmation-dialog';
+import { SimpleDialogComponent } from '../shared/components/simple-dialog';
 
 @Component({
   selector: 'app-test',

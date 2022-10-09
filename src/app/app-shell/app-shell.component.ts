@@ -8,7 +8,9 @@ import { Router } from '@angular/router';
 export class AppShellComponent {
   fio = 'admin';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+    //TODO: получение имени пользователя по http
+  }
 
   logout(): void {
     sessionStorage.removeItem('auth');
