@@ -38,7 +38,7 @@ export class TestComponent {
       this.color = 'warn';
       setTimeout(() => {
         this.color = '';
-      }, 150);
+      }, 250);
     }
   }
 }
