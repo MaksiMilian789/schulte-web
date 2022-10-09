@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>{{ data.title }}</h2>
+<mat-dialog-content>
+  <div class="text">
+    <p>Время тестирования: {{data.time}}</p>
+    <p>Чиcло ошибок: {{data.mistakes}}</p>
+    <p>Эффективность работы: {{data.result.efficiency}}</p>
+    <p>Степень врабатываемости: {{data.result.workability}}</p>
+    <p>Психологическая устойчивость: {{data.result.sustainability}}</p>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <div class="spacer"></div>
+  <button mat-button [color]="data.actionColor" [mat-dialog-close]="true">
+    {{ data.actionText }}
+  </button>
+</mat-dialog-actions>

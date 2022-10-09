@@ -3,7 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { timer } from 'rxjs';
 import { ConfirmationDialogComponent } from '../shared/components/confirmation-dialog';
+import { ResultDialogComponent } from '../shared/components/result-dialog';
 import { SimpleDialogComponent } from '../shared/components/simple-dialog';
+import { resultService } from './result-service.service';
 
 @Component({
   selector: 'app-test',
@@ -23,6 +25,9 @@ export class TestComponent implements OnInit {
   //цветовая индикация
   color: string = '';
 
+  //размерность таблицы теста
+  N: number = 5;
+
   disabled: boolean = true;
 
   stage!: number;
@@ -32,8 +37,9 @@ export class TestComponent implements OnInit {
   time: number = 0;
   isRunning: boolean = false;
   timerDisplay!: string;
+  timeStage: number[] = [];
 
-  constructor(private _dialog: MatDialog) {
+  constructor(private _dialog: MatDialog, private _result: resultService) {
     this.buildSequence();
     this.buildMatrix();
   }
@@ -49,8 +55,8 @@ export class TestComponent implements OnInit {
 
   buildSequence(): void {
     this.sequence = [];
-    for (let i = 1; i < 26; i++) {
-      this.sequence.push(i);
+    for (let i = 0; i < this.N*this.N; i++) {
+      this.sequence.push(i+1);
     }
   }
 
@@ -60,9 +66,9 @@ export class TestComponent implements OnInit {
     random.sort(() => Math.random() - 0.5);
 
     let k = 0;
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < this.N; i++) {
       this.matrix[i] = [];
-      for (let j = 0; j < 5; j++) {
+      for (let j = 0; j < this.N; j++) {
         this.matrix[i][j] = random[k];
         k++;
       }
@@ -78,6 +84,7 @@ export class TestComponent implements OnInit {
     this.time = 0;
     this.timerDisplay = '00:00';
     this.isRunning = true;
+    this.timeStage = [];
   }
 
   stop() {
@@ -87,6 +94,7 @@ export class TestComponent implements OnInit {
     this.mistakes = -1;
     this.time = 0;
     this.timerDisplay = '';
+    this.timeStage = [];
   }
 
   rebuild(): void {
@@ -97,15 +105,17 @@ export class TestComponent implements OnInit {
   checkButton(number: any): void {
     if (this.sequence[this.k] == number) {
       this.sequence = this.sequence.slice(1);
-      if (number == 3) {
+      if (number == 3) { //this.N*N
         this.color = 'primary';
         setTimeout(() => {
           this.color = '';
         }, 250);
+        this.timeStage.push(this.time);
 
         if (this.stage == 5) {
           this.isRunning = false;
           this.disabled = true;
+          this.openResults();
           return;
         }
 
@@ -166,6 +176,20 @@ export class TestComponent implements OnInit {
       data: {
         title: 'Инструкция',
         text: guide,
+      },
+      width: '50%',
+    });
+  }
+
+  openResults(): void {
+    let result = this._result.calcResult(this.timeStage, this.mistakes, this.time);
+
+    this._dialog.open(ResultDialogComponent, {
+      data: {
+        title: 'Результаты',
+        time: this.time,
+        mistakes: this.mistakes,
+        result: result,
       },
       width: '50%',
     });
