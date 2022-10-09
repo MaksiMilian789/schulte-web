@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -6,10 +7,22 @@ import { Injectable } from '@angular/core';
 export class AuthService {
   isLoggedIn: boolean = false;
 
-  constructor() {
+  constructor(private _router: Router) {
     if (sessionStorage.getItem('auth') != null) {
       this.isLoggedIn = true;
-      console.log("auth")
     }
+  }
+
+  login(login: string, password: string): boolean {
+    //авторизация по http
+    sessionStorage.setItem('auth', login);
+    this.isLoggedIn = true;
+    this._router.navigate(['/']);
+    return true;
+  }
+
+  logout(): void {
+    sessionStorage.removeItem('auth');
+    this._router.navigate(['/auth']);
   }
 }

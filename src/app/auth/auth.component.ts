@@ -31,12 +31,10 @@ export class AuthComponent {
       return;
     }
 
-    sessionStorage.setItem('auth', this.form.value.login);
 
-    this._auth.isLoggedIn = true;
-
-    //проверка на логин/пароль
-    this._router.navigate(['/']);
+    //проверка на логин/пароль через сервис (с оповещением о неверном через snackbar)
+    this._auth.login(this.form.value.login, this.form.value.password);
+    
 
     /*const formState: { login: string; password: string } = this.form.value;
     this.form.disable();

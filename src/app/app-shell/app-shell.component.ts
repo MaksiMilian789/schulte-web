@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   templateUrl: './app-shell.component.html',
@@ -8,13 +9,12 @@ import { Router } from '@angular/router';
 export class AppShellComponent {
   fio = 'admin';
 
-  constructor(private router: Router) {
+  constructor(private _auth: AuthService) {
     //TODO: получение имени пользователя по http
   }
 
   logout(): void {
-    sessionStorage.removeItem('auth');
-    this.router.navigate(['/auth']);
+    this._auth.logout();
   }
 
   private _formatFio(fio: string): string {
