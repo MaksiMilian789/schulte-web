@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthService } from './auth.service';
 
 @Component({
   templateUrl: './auth.component.html',
@@ -12,7 +13,11 @@ export class AuthComponent {
   form: FormGroup;
   hide = true;
 
-  constructor(private router: Router, private snackbar: MatSnackBar) {
+  constructor(
+    private _router: Router,
+    private _snackbar: MatSnackBar,
+    private _auth: AuthService
+  ) {
     this.form = new FormGroup({
       login: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),
@@ -28,8 +33,10 @@ export class AuthComponent {
 
     sessionStorage.setItem('auth', this.form.value.login);
 
+    this._auth.isLoggedIn = true;
+
     //проверка на логин/пароль
-    this.router.navigate(['/']);
+    this._router.navigate(['/']);
 
     /*const formState: { login: string; password: string } = this.form.value;
     this.form.disable();
