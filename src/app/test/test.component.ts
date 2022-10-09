@@ -5,6 +5,7 @@ import { timer } from 'rxjs';
 import { ConfirmationDialogComponent } from '../shared/components/confirmation-dialog';
 import { ResultDialogComponent } from '../shared/components/result-dialog';
 import { SimpleDialogComponent } from '../shared/components/simple-dialog';
+import { timeService } from '../shared/services/time-service.service';
 import { resultService } from './result-service.service';
 
 @Component({
@@ -12,7 +13,7 @@ import { resultService } from './result-service.service';
   templateUrl: './test.component.html',
   styleUrls: ['./test.component.scss'],
 })
-export class TestComponent implements OnInit {
+export class TestComponent{
   //перемешанная матрица кнопок
   matrix: number[][] = [];
 
@@ -34,29 +35,19 @@ export class TestComponent implements OnInit {
 
   mistakes!: number;
 
-  time: number = 0;
-  isRunning: boolean = false;
-  timerDisplay!: string;
-  timeStage: number[] = [];
-
-  constructor(private _dialog: MatDialog, private _result: resultService) {
+  constructor(
+    private _dialog: MatDialog,
+    private _result: resultService,
+    public timer: timeService
+  ) {
     this.buildSequence();
     this.buildMatrix();
   }
 
-  ngOnInit() {
-    timer(0, 1000).subscribe((ellapsedCycles) => {
-      if (this.isRunning) {
-        this.time++;
-        this.timerDisplay = this.getDisplayTimer(this.time);
-      }
-    });
-  }
-
   buildSequence(): void {
     this.sequence = [];
-    for (let i = 0; i < this.N*this.N; i++) {
-      this.sequence.push(i+1);
+    for (let i = 0; i < this.N * this.N; i++) {
+      this.sequence.push(i + 1);
     }
   }
 
@@ -81,20 +72,15 @@ export class TestComponent implements OnInit {
     this.disabled = false;
     this.stage = 1;
     this.mistakes = 0;
-    this.time = 0;
-    this.timerDisplay = '00:00';
-    this.isRunning = true;
-    this.timeStage = [];
+    this.timer.startTimer();
   }
 
-  stop() {
-    this.isRunning = false;
+  stop(): void {
+    this.timer.isRunning = false;
     this.disabled = true;
     this.stage = 0;
     this.mistakes = -1;
-    this.time = 0;
-    this.timerDisplay = '';
-    this.timeStage = [];
+    this.timer.stopTimer();
   }
 
   rebuild(): void {
@@ -105,15 +91,16 @@ export class TestComponent implements OnInit {
   checkButton(number: any): void {
     if (this.sequence[this.k] == number) {
       this.sequence = this.sequence.slice(1);
-      if (number == 3) { //this.N*N
+      if (number == 3) {
+        //number == this.N*this.N
         this.color = 'primary';
         setTimeout(() => {
           this.color = '';
         }, 250);
-        this.timeStage.push(this.time);
+        this.timer.saveTimeStage();
 
         if (this.stage == 5) {
-          this.isRunning = false;
+          this.timer.isRunning = false;
           this.disabled = true;
           this.openResults();
           return;
@@ -129,19 +116,6 @@ export class TestComponent implements OnInit {
         this.color = '';
       }, 250);
     }
-  }
-
-  getDisplayTimer(time: number): string {
-    const minutes = '0' + Math.floor((time % 3600) / 60);
-    const seconds = '0' + Math.floor((time % 3600) % 60);
-
-    return (
-      minutes.slice(-2, -1) +
-      minutes.slice(-1) +
-      ':' +
-      seconds.slice(-2, -1) +
-      seconds.slice(-1)
-    );
   }
 
   startWithGuide(): void {
@@ -182,12 +156,16 @@ export class TestComponent implements OnInit {
   }
 
   openResults(): void {
-    let result = this._result.calcResult(this.timeStage, this.mistakes, this.time);
+    let result = this._result.calcResult(
+      this.timer.timeStage,
+      this.mistakes,
+      this.timer.time
+    );
 
     this._dialog.open(ResultDialogComponent, {
       data: {
         title: 'Результаты',
-        time: this.time,
+        time: this.timer.time,
         mistakes: this.mistakes,
         result: result,
       },

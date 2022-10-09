@@ -3,6 +3,7 @@ import { ThemePalette } from '@angular/material/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Results } from '../../models/results';
+import { timeService } from '../../services/time-service.service';
 
 /**
  * Конфигурация для диалогового окна подтверждения.
@@ -35,10 +36,14 @@ export interface ResultDialogData {
   styleUrls: ['./result-dialog.component.scss'],
 })
 export class ResultDialogComponent {
+  time: string = '';
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: ResultDialogData,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private _timer: timeService
   ) {
     data.actionText = data.actionText ?? 'Ок';
+    this.time = this._timer.getDisplayTimer(data.time);
   }
 }
