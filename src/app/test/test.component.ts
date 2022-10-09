@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+
 import { timer } from 'rxjs';
+import { ConfirmationDialogComponent } from '../shared/confirmation-dialog';
 
 @Component({
   selector: 'app-test',
@@ -30,7 +32,7 @@ export class TestComponent implements OnInit {
   isRunning: boolean = false;
   timerDisplay!: string;
 
-  constructor(private _snackbar: MatSnackBar) {
+  constructor(private _dialog: MatDialog) {
     this.buildSequence();
     this.buildMatrix();
   }
@@ -117,6 +119,7 @@ export class TestComponent implements OnInit {
       }, 250);
     }
   }
+
   getDisplayTimer(time: number): string {
     const minutes = '0' + Math.floor((time % 3600) / 60);
     const seconds = '0' + Math.floor((time % 3600) % 60);
@@ -128,5 +131,27 @@ export class TestComponent implements OnInit {
       seconds.slice(-2, -1) +
       seconds.slice(-1)
     );
+  }
+
+  startWithGuide(): void {
+    //TODO: получение инструкции по http
+    let guide =
+      'Вам будут поочередно предложены 5 таблиц с числами от 1 до 25, расположенными в произвольном порядк. Ваша задача - выбирать в каждой таблице числа по возрастанию (от 1 до 25). Выбор осуществляется при помощи клика по ячейке с числом. По окончании прохождения теста вам будут предложены результаты тестирования. После нажатия кнопки "Начать тестирование" тестирование начнётся с новой таблицей.';
+
+    this._dialog
+      .open(ConfirmationDialogComponent, {
+        data: {
+          title: 'Инструкция',
+          text: guide,
+          actionText: 'Начать тест',
+          actionColor: 'primary',
+        },
+      })
+      .afterClosed()
+      .subscribe((val) => {
+        if (val) {
+          this.start();
+        }
+      });
   }
 }

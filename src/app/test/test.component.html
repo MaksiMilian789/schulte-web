@@ -1,5 +1,5 @@
 <mat-toolbar color="primary" class="toolbar mat-elevation-z4">
-    <button mat-button *ngIf="disabled" (click)="start()" class="toolbar-button">Начать тестирование</button>
+    <button mat-button *ngIf="disabled" (click)="startWithGuide()" class="toolbar-button">Начать тестирование</button>
     <div *ngIf="disabled" class="spacer"></div>
     <span *ngIf="timerDisplay">Время: {{timerDisplay}}</span>
     <div class="spacer"></div>
