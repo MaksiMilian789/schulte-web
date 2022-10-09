@@ -73,8 +73,17 @@ export class TestComponent implements OnInit {
     this.stage = 1;
     this.mistakes = 0;
     this.time = 0;
-    this.timerDisplay = "00:00";
+    this.timerDisplay = '00:00';
     this.isRunning = true;
+  }
+
+  stop() {
+    this.isRunning = false;
+    this.disabled = true;
+    this.stage = 0;
+    this.mistakes = -1;
+    this.time = 0;
+    this.timerDisplay = '';
   }
 
   rebuild(): void {
