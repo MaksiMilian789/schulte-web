@@ -2,7 +2,7 @@
   <button mat-icon-button (click)="drawer.toggle()">
     <mat-icon>menu</mat-icon>
   </button>
-  <span>Сервис тестирования по методике Шульте</span>
+  <span [routerLink]="['']" class="pointer">Сервис тестирования по методике Шульте</span>
   <div class="spacer"></div>
   <!--><span *ngIf="userFio$ | async as fio">{{ fio }}</span><-->
   <span>{{fio}}</span>

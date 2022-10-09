@@ -9,9 +9,10 @@ import { AppShellComponent } from './app-shell/app-shell.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthGuard } from './auth/auth.guard';
 import { TestComponent } from './test/test.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
-  declarations: [AppComponent, AuthComponent, AppShellComponent, TestComponent],
+  declarations: [AppComponent, AuthComponent, AppShellComponent, TestComponent, HomeComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
