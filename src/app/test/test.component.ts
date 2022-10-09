@@ -28,7 +28,7 @@ export class TestComponent implements OnInit {
 
   time: number = 0;
   isRunning: boolean = false;
-  timerDisplay: any;
+  timerDisplay!: string;
 
   constructor(private _snackbar: MatSnackBar) {
     this.buildSequence();
@@ -73,6 +73,7 @@ export class TestComponent implements OnInit {
     this.stage = 1;
     this.mistakes = 0;
     this.time = 0;
+    this.timerDisplay = "00:00";
     this.isRunning = true;
   }
 
