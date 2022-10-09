@@ -16,7 +16,7 @@ import { TestComponent } from './test/test.component';
     BrowserModule,
     AppRoutingModule,
     SharedModule,
-    BrowserAnimationsModule,    
+    BrowserAnimationsModule,
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent],

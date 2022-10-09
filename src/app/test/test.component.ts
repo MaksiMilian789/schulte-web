@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-test',
   templateUrl: './test.component.html',
   styleUrls: ['./test.component.scss'],
 })
-export class TestComponent {
+export class TestComponent implements OnInit {
   //перемешанная матрица кнопок
   matrix: number[][] = [];
 
@@ -21,11 +22,26 @@ export class TestComponent {
 
   disabled: boolean = true;
 
-  stage: number = 1;
+  stage!: number;
+
+  mistakes!: number;
+
+  time: number = 0;
+  isRunning: boolean = false;
+  timerDisplay: any;
 
   constructor(private _snackbar: MatSnackBar) {
     this.buildSequence();
     this.buildMatrix();
+  }
+
+  ngOnInit() {
+    timer(0, 1000).subscribe((ellapsedCycles) => {
+      if (this.isRunning) {
+        this.time++;
+        this.timerDisplay = this.getDisplayTimer(this.time);
+      }
+    });
   }
 
   buildSequence(): void {
@@ -54,6 +70,10 @@ export class TestComponent {
     this.buildSequence();
     this.buildMatrix();
     this.disabled = false;
+    this.stage = 1;
+    this.mistakes = 0;
+    this.time = 0;
+    this.isRunning = true;
   }
 
   rebuild(): void {
@@ -64,22 +84,39 @@ export class TestComponent {
   checkButton(number: any): void {
     if (this.sequence[this.k] == number) {
       this.sequence = this.sequence.slice(1);
-      if (number == 25) {
+      if (number == 3) {
         this.color = 'primary';
         setTimeout(() => {
           this.color = '';
         }, 250);
-        if(this.stage == 5) {
+
+        if (this.stage == 5) {
+          this.isRunning = false;
           this.disabled = true;
-        }        
+          return;
+        }
+
         this.stage++;
         this.rebuild();
       }
     } else {
+      this.mistakes++;
       this.color = 'warn';
       setTimeout(() => {
         this.color = '';
       }, 250);
     }
+  }
+  getDisplayTimer(time: number): string {
+    const minutes = '0' + Math.floor((time % 3600) / 60);
+    const seconds = '0' + Math.floor((time % 3600) % 60);
+
+    return (
+      minutes.slice(-2, -1) +
+      minutes.slice(-1) +
+      ':' +
+      seconds.slice(-2, -1) +
+      seconds.slice(-1)
+    );
   }
 }
