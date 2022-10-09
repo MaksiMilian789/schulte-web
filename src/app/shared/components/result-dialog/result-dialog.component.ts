@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Results } from '../../models/results';
 import { timeService } from '../../services/time-service.service';
 

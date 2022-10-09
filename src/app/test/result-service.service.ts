@@ -18,7 +18,7 @@ export class resultService {
       sustainability: sustainability,
     };
 
-    //TODO: занесение результатов в БД по http
+    //TODO: занесение результатов в БД по http (timeStage, mistakes, time)
 
     return res;
   }

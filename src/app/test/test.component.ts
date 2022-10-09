@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
-import { timer } from 'rxjs';
 import { ConfirmationDialogComponent } from '../shared/components/confirmation-dialog';
 import { ResultDialogComponent } from '../shared/components/result-dialog';
 import { SimpleDialogComponent } from '../shared/components/simple-dialog';
