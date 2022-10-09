@@ -3,9 +3,9 @@
   <div class="text">
     <p>Время тестирования: {{time}}</p>
     <p>Чиcло ошибок: {{data.mistakes}}</p>
-    <p>Эффективность работы: {{data.result.efficiency}}</p>
-    <p>Степень врабатываемости: {{data.result.workability}}</p>
-    <p>Психологическая устойчивость: {{data.result.sustainability}}</p>
+    <p>Эффективность работы: {{data.result.efficiency | number: '0.0-3'}}</p>
+    <p>Степень врабатываемости: {{data.result.workability | number: '0.0-3'}} ({{workability}})</p>
+    <p>Психологическая устойчивость: {{data.result.sustainability | number: '0.0-3'}} ({{sustainability}})</p>
   </div>
 </mat-dialog-content>
 <mat-dialog-actions>

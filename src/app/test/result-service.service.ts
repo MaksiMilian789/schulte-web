@@ -10,7 +10,7 @@ export class resultService {
   calcResult(timeStage: number[], mistakes: number, time: number): Results {
     let efficiency = this.calcEfficiency(timeStage);
     let workability = timeStage[0] / efficiency;
-    let sustainability = timeStage[4] / efficiency;
+    let sustainability = timeStage[3] / efficiency;
 
     let res: Results = {
       efficiency: efficiency,

@@ -37,6 +37,8 @@ export interface ResultDialogData {
 })
 export class ResultDialogComponent {
   time: string = '';
+  workability: string = '';
+  sustainability: string = '';
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: ResultDialogData,
@@ -45,5 +47,13 @@ export class ResultDialogComponent {
   ) {
     data.actionText = data.actionText ?? 'Ок';
     this.time = this._timer.getDisplayTimer(data.time);
+    this.workability =
+      this.data.result.workability >= 1
+        ? 'Долго сосредотачивается на основной работе'
+        : 'Быстро сосредотачивается на основной работе';
+    this.sustainability =
+      this.data.result.sustainability >= 1
+        ? 'Низкая психическая устойчивость'
+        : 'Хорошая психическая устойчивость';
   }
 }
