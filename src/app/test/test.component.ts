@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { timer } from 'rxjs';
 import { ConfirmationDialogComponent } from '../shared/confirmation-dialog';
+import { SimpleDialogComponent } from '../shared/simple-dialog';
 
 @Component({
   selector: 'app-test',
@@ -146,6 +147,7 @@ export class TestComponent implements OnInit {
           actionText: 'Начать тест',
           actionColor: 'primary',
         },
+        width: '50%',
       })
       .afterClosed()
       .subscribe((val) => {
@@ -153,5 +155,19 @@ export class TestComponent implements OnInit {
           this.start();
         }
       });
+  }
+
+  openGuide(): void {
+    //TODO: получение инструкции по http
+    let guide =
+      'Вам будут поочередно предложены 5 таблиц с числами от 1 до 25, расположенными в произвольном порядк. Ваша задача - выбирать в каждой таблице числа по возрастанию (от 1 до 25). Выбор осуществляется при помощи клика по ячейке с числом. По окончании прохождения теста вам будут предложены результаты тестирования. После нажатия кнопки "Начать тестирование" тестирование начнётся с новой таблицей.';
+
+    this._dialog.open(SimpleDialogComponent, {
+      data: {
+        title: 'Инструкция',
+        text: guide,
+      },
+      width: '50%',
+    });
   }
 }

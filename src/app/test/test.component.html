@@ -7,7 +7,7 @@
     <div class="spacer"></div>
     <span *ngIf="stage">Этап: {{stage}}</span>
     <div class="spacer"></div>
-    <button mat-icon-button *ngIf="disabled" class="toolbar-button" matTooltip="Инструкция"><mat-icon>assignment</mat-icon></button>    
+    <button mat-icon-button *ngIf="disabled" (click)="openGuide()" class="toolbar-button" matTooltip="Инструкция"><mat-icon>assignment</mat-icon></button>    
     <button mat-icon-button *ngIf="!disabled" (click)="start()" class="toolbar-button" matTooltip="Перезапустить тестирование"><mat-icon>restart_alt</mat-icon></button>
     <button mat-icon-button *ngIf="!disabled" (click)="stop()" class="toolbar-button" matTooltip="Остановить тестирование" color="warn"><mat-icon>stop</mat-icon></button>
 </mat-toolbar>
