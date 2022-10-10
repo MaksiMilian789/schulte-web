@@ -1,16 +1,21 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
+import { User } from '../shared/models/user';
 
 @Component({
   templateUrl: './app-shell.component.html',
   styleUrls: ['./app-shell.component.scss'],
 })
 export class AppShellComponent {
-  fio = 'admin';
+  user$!: Observable<User>;
 
   constructor(private _auth: AuthService) {
-    //TODO: получение имени пользователя по http
+    if (sessionStorage.getItem('auth') != null) {
+      //получение информации о пользователе
+      this.user$ = this._auth.httpGetUser();
+    }
   }
 
   logout(): void {

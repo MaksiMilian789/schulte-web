@@ -4,8 +4,7 @@
   </button>
   <span [routerLink]="['']" class="pointer">Сервис тестирования по методике Шульте</span>
   <div class="spacer"></div>
-  <!--><span *ngIf="userFio$ | async as fio">{{ fio }}</span><-->
-  <span>{{fio}}</span>
+  <span *ngIf="user$ | async as user">{{ user.fio }}</span>
   <button mat-icon-button (click)="logout()" matTooltip="Выйти">
     <mat-icon>logout</mat-icon>
   </button>
