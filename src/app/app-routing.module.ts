@@ -10,8 +10,6 @@ const routes: Routes = [
   {
     path: '',
     component: AppShellComponent,
-    canActivate: [AuthGuard],
-    canActivateChild: [AuthGuard],
     children: [
       { path: '', component: HomeComponent },
       { path: 'test', component: TestComponent },
