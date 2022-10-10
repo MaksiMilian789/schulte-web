@@ -13,6 +13,8 @@ const routes: Routes = [
     children: [
       { path: '', component: HomeComponent },
       { path: 'test', component: TestComponent },
+      //{ path: 'my-result', component: MyResultComponent, canActivate: [AuthGuard] },
+      //{ path: 'statistic', component: TestComponent, canActivate: [AuthGuard] },
     ],
   },
   {
