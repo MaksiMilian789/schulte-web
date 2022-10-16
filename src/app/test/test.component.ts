@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../shared/components/confirmation-dialog';
 import { ResultDialogComponent } from '../shared/components/result-dialog';
 import { SimpleDialogComponent } from '../shared/components/simple-dialog';
-import { timeService } from '../shared/services/time-service.service';
+import { TimeService } from '../shared/services/time-service.service';
 import { resultService } from './result-service.service';
 
 @Component({
@@ -37,7 +37,7 @@ export class TestComponent{
   constructor(
     private _dialog: MatDialog,
     private _result: resultService,
-    public timer: timeService
+    public timer: TimeService
   ) {
     this.buildSequence();
     this.buildMatrix();

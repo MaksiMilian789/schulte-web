@@ -4,7 +4,7 @@ import { timer } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class timeService {
+export class TimeService {
   time: number = 0;
   isRunning: boolean = false;
   timerDisplay!: string;

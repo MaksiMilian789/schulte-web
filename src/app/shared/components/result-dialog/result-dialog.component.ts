@@ -2,8 +2,9 @@ import { Component, Inject } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
+
 import { Results } from '../../models/results';
-import { timeService } from '../../services/time-service.service';
+import { TimeService } from '../../services/time-service.service';
 
 /**
  * Конфигурация для диалогового окна подтверждения.
@@ -43,7 +44,7 @@ export class ResultDialogComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: ResultDialogData,
     private sanitizer: DomSanitizer,
-    private _timer: timeService
+    private _timer: TimeService
   ) {
     data.actionText = data.actionText ?? 'Ок';
     this.time = this._timer.getDisplayTimer(data.time);
