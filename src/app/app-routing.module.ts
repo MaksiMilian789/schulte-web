@@ -6,6 +6,7 @@ import { AuthComponent } from './auth/auth.component';
 import { AuthGuard } from './auth/auth.guard';
 import { HomeComponent } from './home/home.component';
 import { MyResultsComponent } from './my-results/my-results.component';
+import { RegistrationComponent } from './registration/registration.component';
 import { TestComponent } from './test/test.component';
 
 const routes: Routes = [
@@ -18,6 +19,10 @@ const routes: Routes = [
       { path: 'my-result', component: MyResultsComponent, canActivate: [AuthGuard] },
       //{ path: 'statistic', component: TestComponent, canActivate: [AuthGuard] },
     ],
+  },
+  {
+    path: 'registration',
+    component: RegistrationComponent,
   },
   {
     path: 'auth',

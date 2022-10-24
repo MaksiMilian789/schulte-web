@@ -11,9 +11,10 @@ import { AuthGuard } from './auth/auth.guard';
 import { TestComponent } from './test/test.component';
 import { HomeComponent } from './home/home.component';
 import { MyResultsComponent } from './my-results/my-results.component';
+import { RegistrationComponent } from './registration/registration.component';
 
 @NgModule({
-  declarations: [AppComponent, AuthComponent, AppShellComponent, TestComponent, HomeComponent, MyResultsComponent],
+  declarations: [AppComponent, AuthComponent, AppShellComponent, TestComponent, HomeComponent, MyResultsComponent, RegistrationComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
