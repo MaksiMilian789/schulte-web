@@ -11,7 +11,7 @@
   align-items: center;
 }
 
-.login-form {
+.reg-form {
   display: flex;
   flex-direction: column;
   width: 300px;
@@ -23,4 +23,13 @@
 
 .pointer {
   cursor: pointer;
+}
+
+.error-valid {
+  color: red;
+  font-size: 12px;
+}
+
+mat-form-field{
+  margin-bottom: 10px;
 }
