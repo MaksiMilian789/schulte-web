@@ -23,7 +23,7 @@ export class HttpService {
   /**
    * Получение результатов теста в БД
    */
-  public getResult(result: httpResults): Observable<httpResults[]> {
+  public getResult(): Observable<httpResults[]> {
     /*return this._http.get(
       `${this._baseUrl}/Users/${idUser}/group/${idGroup}`,
       {}
@@ -46,6 +46,37 @@ export class HttpService {
         efficiency: 7,
         workability: 1.2,
         sustainability: 0.5,
+      },
+    ];
+    return of(res);
+  }
+
+  /**
+   * Получение результатов теста в БД
+   */
+   public getUserResult(login: string): Observable<httpResults[]> {
+    /*return this._http.get(
+      `${this._baseUrl}/Users/${idUser}/group/${idGroup}`,
+      {}
+    );*/
+    let res: httpResults[] = [
+      {
+        login: 'maksim',
+        time: 50,
+        mistakes: 1,
+        date: new Date(),
+        efficiency: 0,
+        workability: 1,
+        sustainability: 1,
+      },
+      {
+        login: 'maksim',
+        time: 999,
+        mistakes: 33,
+        date: new Date(),
+        efficiency: 5,
+        workability: 1,
+        sustainability: 77,
       },
     ];
     return of(res);

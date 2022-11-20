@@ -25,7 +25,7 @@
           <p matLine>Тестирование</p>
         </a>
         <ng-container *ngIf="user$ | async as user">
-          <a mat-list-item [routerLink]="['results']" routerLinkActive="active">
+          <a mat-list-item [routerLink]="['my-results']" routerLinkActive="active">
             <mat-icon matListIcon>pending_actions</mat-icon>
             <p matLine>Мои результаты</p>
           </a>

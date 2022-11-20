@@ -1,0 +1,52 @@
+.container {
+  width: 100%;
+  height: calc(100% - 64px);
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+table {
+  width: 100%;
+}
+
+.table-overflow {
+  overflow: auto;
+}
+
+.containerBottom {
+  display: flex;
+  justify-content: flex-end;
+  position: sticky !important;
+  margin-top: auto;
+}
+
+mat-paginator {
+  margin: auto;
+  width: 100%;
+  min-width: 250px;
+}
+
+.search-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+
+  .mat-form-field {
+    width: 100%;
+    margin: 0 16px;
+  }
+}
+
+.mat-cell {
+  padding-left: 15px;
+}
+
+td.mat-cell:first-of-type {
+  padding-left: 39px !important;
+}
+
+::ng-deep .mat-sort-header-container{
+  padding-left: 15px;
+}

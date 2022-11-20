@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -12,16 +12,36 @@ import { TestComponent } from './test/test.component';
 import { HomeComponent } from './home/home.component';
 import { MyResultsComponent } from './my-results/my-results.component';
 import { RegistrationComponent } from './registration/registration.component';
+import { HttpClientModule } from '@angular/common/http';
+import { registerLocaleData } from '@angular/common';
+import localeRu from '@angular/common/locales/ru';
+
+registerLocaleData(localeRu);
 
 @NgModule({
-  declarations: [AppComponent, AuthComponent, AppShellComponent, TestComponent, HomeComponent, MyResultsComponent, RegistrationComponent],
+  declarations: [
+    AppComponent,
+    AuthComponent,
+    AppShellComponent,
+    TestComponent,
+    HomeComponent,
+    MyResultsComponent,
+    RegistrationComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     SharedModule,
     BrowserAnimationsModule,
+    HttpClientModule,
   ],
-  providers: [AuthGuard],
+  providers: [
+    AuthGuard,
+    {
+      provide: LOCALE_ID,
+      useValue: 'ru',
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
