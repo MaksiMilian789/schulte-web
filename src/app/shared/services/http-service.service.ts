@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { httpResults } from '../models/results';
+import { httpAllResults, httpResults } from '../models/results';
 import { Observable, of } from 'rxjs';
 
 @Injectable({
@@ -23,14 +23,14 @@ export class HttpService {
   /**
    * Получение результатов теста в БД
    */
-  public getResult(): Observable<httpResults[]> {
+  public getResult(): Observable<httpAllResults[]> {
     /*return this._http.get(
       `${this._baseUrl}/Users/${idUser}/group/${idGroup}`,
       {}
     );*/
-    let res: httpResults[] = [
+    let res: httpAllResults[] = [
       {
-        login: 'maksim',
+        fio: 'maksim',
         time: 50,
         mistakes: 1,
         date: new Date(),
@@ -39,13 +39,22 @@ export class HttpService {
         sustainability: 1,
       },
       {
-        login: 'elya',
+        fio: 'elya',
         time: 30,
         mistakes: 0,
         date: new Date(),
         efficiency: 7,
         workability: 1.2,
         sustainability: 0.5,
+      },
+      {
+        fio: 'maksim',
+        time: 999,
+        mistakes: 33,
+        date: new Date(),
+        efficiency: 5,
+        workability: 1,
+        sustainability: 77,
       },
     ];
     return of(res);
@@ -61,7 +70,6 @@ export class HttpService {
     );*/
     let res: httpResults[] = [
       {
-        login: 'maksim',
         time: 50,
         mistakes: 1,
         date: new Date(),
@@ -70,7 +78,6 @@ export class HttpService {
         sustainability: 1,
       },
       {
-        login: 'maksim',
         time: 999,
         mistakes: 33,
         date: new Date(),

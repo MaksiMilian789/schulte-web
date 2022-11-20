@@ -7,6 +7,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { HomeComponent } from './home/home.component';
 import { MyResultsComponent } from './my-results/my-results.component';
 import { RegistrationComponent } from './registration/registration.component';
+import { StatisticsComponent } from './statistics/statistics.component';
 import { TestComponent } from './test/test.component';
 
 const routes: Routes = [
@@ -17,7 +18,7 @@ const routes: Routes = [
       { path: '', component: HomeComponent },
       { path: 'test', component: TestComponent },
       { path: 'my-results', component: MyResultsComponent, canActivate: [AuthGuard] },
-      //{ path: 'statistic', component: TestComponent, canActivate: [AuthGuard] },
+      { path: 'statistics', component: StatisticsComponent, canActivate: [AuthGuard] },
     ],
   },
   {
