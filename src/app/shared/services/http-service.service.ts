@@ -12,7 +12,7 @@ export class HttpService {
   /**
    * Отправление результатов теста в БД
    */
-  public sendResut(result: httpResults): Observable<void> {
+  public sendResult(result: httpResults): Observable<void> {
     /*return this._http.post(
       `${this._baseUrl}/Users/${idUser}/group/${idGroup}`,
       {}
@@ -23,7 +23,7 @@ export class HttpService {
   /**
    * Получение результатов теста в БД
    */
-  public getResut(result: httpResults): Observable<httpResults[]> {
+  public getResult(result: httpResults): Observable<httpResults[]> {
     /*return this._http.get(
       `${this._baseUrl}/Users/${idUser}/group/${idGroup}`,
       {}
