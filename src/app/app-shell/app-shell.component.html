@@ -29,9 +29,13 @@
             <mat-icon matListIcon>pending_actions</mat-icon>
             <p matLine>Мои результаты</p>
           </a>
-          <a mat-list-item *ngIf="user.role" [routerLink]="['statistics']" routerLinkActive="active">
+          <a mat-list-item *ngIf="user.role == 1" [routerLink]="['statistics']" routerLinkActive="active">
             <mat-icon matListIcon>bar_chart</mat-icon>
             <p matLine>Статистика</p>
+          </a>
+          <a mat-list-item *ngIf="user.role == 1" [routerLink]="['edit']" routerLinkActive="active">
+            <mat-icon matListIcon>edit</mat-icon>
+            <p matLine>Редактирование</p>
           </a>
         </ng-container>
       </mat-nav-list>

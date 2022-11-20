@@ -16,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
 import localeRu from '@angular/common/locales/ru';
 import { StatisticsComponent } from './statistics/statistics.component';
+import { EditComponent } from './edit/edit.component';
 
 registerLocaleData(localeRu);
 
@@ -29,6 +30,7 @@ registerLocaleData(localeRu);
     MyResultsComponent,
     RegistrationComponent,
     StatisticsComponent,
+    EditComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,9 @@
+<mat-toolbar color="primary" class="toolbar">
+    Редактирование
+</mat-toolbar>
+<mat-form-field>
+    <textarea matInput placeholder="Инструкция" [(ngModel)]="instruction" cdkTextareaAutosize></textarea>
+</mat-form-field>
+<button mat-icon-button (click)="saveInstruction()" matTooltip="Сохранить">
+    <mat-icon>save</mat-icon>
+</button>
