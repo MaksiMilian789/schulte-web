@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpService } from '../shared';
 
 @Component({
@@ -9,17 +10,19 @@ import { HttpService } from '../shared';
 export class EditComponent implements OnInit {
   instruction: string = '';
 
-  constructor(private _httpService: HttpService) {}
+  constructor(
+    private _httpService: HttpService,
+    private _snackbar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
-    //TODO: поулчить инструкцию с сервера
-    this.instruction =
-      'Вам будут поочередно предложены 5 таблиц с числами от 1 до 25, расположенными в произвольном порядк. Ваша задача - выбирать в каждой таблице числа по возрастанию (от 1 до 25). Выбор осуществляется при помощи клика по ячейке с числом. По окончании прохождения теста вам будут предложены результаты тестирования. После нажатия кнопки "Начать тестирование" тестирование начнётся с новой таблицей.';
+    this._httpService.getInstruction().subscribe((val) => {
+      this.instruction = val;
+    });
   }
 
   saveInstruction(): void {
-    //TODO: отправить инструкцию на сервер
-    console.log(this.instruction);
-    //Обновить инструкцию
+    this._httpService.sendInstruction(this.instruction).subscribe();
+    this._snackbar.open("Инструкция сохранена");
   }
 }

@@ -17,7 +17,7 @@ import { resultService } from './result-service.service';
   templateUrl: './test.component.html',
   styleUrls: ['./test.component.scss'],
 })
-export class TestComponent{
+export class TestComponent {
   //перемешанная матрица кнопок
   matrix: number[][] = [];
 
@@ -38,22 +38,21 @@ export class TestComponent{
   stage!: number;
 
   mistakes!: number;
-  
+
   login!: string;
 
   constructor(
     private _dialog: MatDialog,
     private _result: resultService,
     public timer: TimeService,
-    public httpService: HttpService,
-    private _auth: AuthService
+    private _httpService: HttpService
   ) {
     this.buildSequence();
     this.buildMatrix();
 
     if (sessionStorage.getItem('auth') != null) {
       //получение информации о пользователе
-      this._auth.httpGetUser().subscribe(val => this.login = val.login).unsubscribe();
+      this.login = sessionStorage.getItem('auth') as string;
     }
   }
 
@@ -104,7 +103,7 @@ export class TestComponent{
   checkButton(number: any): void {
     if (this.sequence[this.k] == number) {
       this.sequence = this.sequence.slice(1);
-      if (number == 3) {
+      if (number == 1) {
         //number == this.N*this.N
         this.color = 'primary';
         setTimeout(() => {
@@ -115,6 +114,7 @@ export class TestComponent{
         if (this.stage == 5) {
           this.timer.isRunning = false;
           this.disabled = true;
+
           this.openResults();
           return;
         }
@@ -132,39 +132,35 @@ export class TestComponent{
   }
 
   startWithGuide(): void {
-    //TODO: получение инструкции по http
-    let guide =
-      'Вам будут поочередно предложены 5 таблиц с числами от 1 до 25, расположенными в произвольном порядк. Ваша задача - выбирать в каждой таблице числа по возрастанию (от 1 до 25). Выбор осуществляется при помощи клика по ячейке с числом. По окончании прохождения теста вам будут предложены результаты тестирования. После нажатия кнопки "Начать тестирование" тестирование начнётся с новой таблицей.';
-
-    this._dialog
-      .open(ConfirmationDialogComponent, {
-        data: {
-          title: 'Инструкция',
-          text: guide,
-          actionText: 'Начать тест',
-          actionColor: 'primary',
-        },
-        width: '50%',
-      })
-      .afterClosed()
-      .subscribe((val) => {
-        if (val) {
-          this.start();
-        }
-      });
+    this._httpService.getInstruction().subscribe((val) => {
+      this._dialog
+        .open(ConfirmationDialogComponent, {
+          data: {
+            title: 'Инструкция',
+            text: val,
+            actionText: 'Начать тест',
+            actionColor: 'primary',
+          },
+          width: '50%',
+        })
+        .afterClosed()
+        .subscribe((val) => {
+          if (val) {
+            this.start();
+          }
+        });
+    });
   }
 
   openGuide(): void {
-    //TODO: получение инструкции по http
-    let guide =
-      'Вам будут поочередно предложены 5 таблиц с числами от 1 до 25, расположенными в произвольном порядк. Ваша задача - выбирать в каждой таблице числа по возрастанию (от 1 до 25). Выбор осуществляется при помощи клика по ячейке с числом. По окончании прохождения теста вам будут предложены результаты тестирования. После нажатия кнопки "Начать тестирование" тестирование начнётся с новой таблицей.';
-
-    this._dialog.open(SimpleDialogComponent, {
-      data: {
-        title: 'Инструкция',
-        text: guide,
-      },
-      width: '50%',
+    this._httpService.getInstruction().subscribe((val) => {
+      this._dialog.open(SimpleDialogComponent, {
+        data: {
+          title: 'Инструкция',
+          text: val,
+        },
+        width: '50%',
+      });
     });
   }
 
@@ -176,8 +172,7 @@ export class TestComponent{
     );
 
     // Отправка результатов в БД
-    if(this.login)
-      this.sendResult(result)
+    this.sendResult(result);
 
     this._dialog.open(ResultDialogComponent, {
       data: {
@@ -198,8 +193,8 @@ export class TestComponent{
       date: new Date().toISOString(),
       efficiency: result.efficiency,
       workability: result.workability,
-      sustainability: result.sustainability
-    }
-    this.httpService.sendResult(res);
+      sustainability: result.sustainability,
+    };
+    this._httpService.sendResult(res).subscribe();
   }
 }

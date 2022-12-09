@@ -11,10 +11,13 @@ import { User } from '../shared/models/user';
 export class AppShellComponent {
   user$!: Observable<User>;
 
+  userLogin: string = "";
+
   constructor(private _auth: AuthService) {
     if (sessionStorage.getItem('auth') != null) {
       //получение информации о пользователе
-      this.user$ = this._auth.httpGetUser();
+      this.user$ = this._auth.httpGetUser(sessionStorage.getItem('auth') as string);
+      this.userLogin = sessionStorage.getItem('auth') as string;
     }
   }
 

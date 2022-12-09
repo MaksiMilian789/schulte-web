@@ -1,113 +1,91 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { httpAllResults, httpResults } from '../models/results';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HttpService {
+  _baseUrl: string = 'http://localhost:8080';
+
   constructor(private _http: HttpClient) {}
 
   /**
    * Отправление результатов теста в БД
    */
-  public sendResult(result: httpAllResults): Observable<void> {
-    /*return this._http.post(
-      `${this._baseUrl}/Users/${idUser}/group/${idGroup}`,
-      {}
-    );*/
-    return of();
+  public sendResult(result: httpAllResults): Observable<void>{
+    let headers = new HttpHeaders({
+      'Access-Control-Allow-Origin': '*',
+      Authorization: sessionStorage.getItem('jwt') as string,
+    });
+    return this._http.post<void>(
+      `${this._baseUrl}/saveResults`,
+      {
+        request: result,
+      },
+      {
+        headers: headers,
+      }
+    );
   }
 
   /**
    * Получение результатов теста из БД
    */
   public getResult(): Observable<httpAllResults[]> {
-    /*return this._http.get(
-      `${this._baseUrl}/Users/${idUser}/group/${idGroup}`,
-      {}
-    );*/
-    let res: httpAllResults[] = [
-      {
-        login: 'maksim',
-        time: 50,
-        mistakes: 1,
-        date: new Date().toISOString(),
-        efficiency: 5,
-        workability: 1,
-        sustainability: 1,
-      },
-      {
-        login: 'elya',
-        time: 30,
-        mistakes: 0,
-        date: new Date().toISOString(),
-        efficiency: 7,
-        workability: 1.2,
-        sustainability: 0.5,
-      },
-      {
-        login: 'maksim',
-        time: 999,
-        mistakes: 33,
-        date: new Date().toISOString(),
-        efficiency: 5,
-        workability: 1,
-        sustainability: 77,
-      },
-    ];
-    return of(res);
+    let headers = new HttpHeaders({
+      'Access-Control-Allow-Origin': '*',
+      Authorization: sessionStorage.getItem('jwt') as string,
+    });
+    return this._http.get<httpAllResults[]>(`${this._baseUrl}/getAllResults`, {
+      headers: headers,
+    });
   }
 
   /**
    * Получение результатов теста в БД
    */
-   public getUserResult(login: string): Observable<httpResults[]> {
-    /*return this._http.get(
-      `${this._baseUrl}/Users/${idUser}/group/${idGroup}`,
-      {}
-    );*/
-    let res: httpResults[] = [
-      {
-        time: 50,
-        mistakes: 1,
-        date: new Date().toISOString(),
-        efficiency: 0,
-        workability: 1,
-        sustainability: 1,
-      },
-      {
-        time: 999,
-        mistakes: 33,
-        date: new Date().toISOString(),
-        efficiency: 5,
-        workability: 1,
-        sustainability: 77,
-      },
-    ];
-    return of(res);
+  public getUserResult(login: string): Observable<httpResults[]> {
+    let headers = new HttpHeaders({
+      'Access-Control-Allow-Origin': '*',
+      Authorization: sessionStorage.getItem('jwt') as string,
+    });
+    var params = new HttpParams().append('login', login);
+    return this._http.get<httpResults[]>(`${this._baseUrl}/getResults`, {
+      params: params,
+      headers: headers,
+    });
   }
 
   /**
    * Получение инструкции
    */
-   public getInstruction(): Observable<string> {
-    /*return this._http.get(
-      `${this._baseUrl}/Users/${idUser}/group/${idGroup}`,
-      {}
-    );*/
-    return of();
+  public getInstruction(): Observable<string> {
+    let headers = new HttpHeaders({
+      'Access-Control-Allow-Origin': '*',
+      Authorization: sessionStorage.getItem('jwt') as string
+    });
+    return this._http.get(`${this._baseUrl}/getInstruction`, {responseType: "text", headers: headers});
   }
 
   /**
    * Получение инструкции
    */
-   public sendInstruction(text: string): Observable<void> {
-    /*return this._http.post(
-      `${this._baseUrl}/Users/${idUser}/group/${idGroup}`,
-      {}
-    );*/
-    return of();
+  public sendInstruction(text: string): Observable<void> {
+    let headers = new HttpHeaders({
+      'Access-Control-Allow-Origin': '*',
+      Authorization: sessionStorage.getItem('jwt') as string,
+    });
+
+    return this._http.post<void>(
+      `${this._baseUrl}/editInstruction`,
+      {
+        textReq: text
+      },
+      {
+        headers: headers,
+      }
+    );
   }
 }

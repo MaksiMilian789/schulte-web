@@ -31,7 +31,7 @@ export class StatisticsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //колонки таблицы
   displayedColumns: string[] = [
-    'fio',
+    'login',
     'time',
     'mistakes',
     'date',

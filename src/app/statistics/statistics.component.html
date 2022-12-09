@@ -17,10 +17,10 @@
     <div class="table-overflow">
         <table mat-table [dataSource]="dataSource" matSort>
 
-            <ng-container matColumnDef="fio">
-                <th mat-header-cell mat-sort-header *matHeaderCellDef> ФИО </th>
+            <ng-container matColumnDef="login">
+                <th mat-header-cell mat-sort-header *matHeaderCellDef> Логин </th>
                 <td mat-cell *matCellDef="let element">
-                    {{element.fio}} </td>
+                    {{element.login}} </td>
             </ng-container>
 
             <ng-container matColumnDef="time">
@@ -58,6 +58,10 @@
                 <td mat-cell *matCellDef="let element">
                     {{element.sustainability}} - {{resultText('sustainability', element.sustainability)}} </td>
             </ng-container>
+
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell no-data mat-hint" colspan="6">Нет информации</td>
+            </tr>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
