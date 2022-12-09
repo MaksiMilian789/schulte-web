@@ -21,7 +21,7 @@ export class HttpService {
   }
 
   /**
-   * Получение результатов теста в БД
+   * Получение результатов теста из БД
    */
   public getResult(): Observable<httpAllResults[]> {
     /*return this._http.get(
