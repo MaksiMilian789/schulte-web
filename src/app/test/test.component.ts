@@ -1,9 +1,14 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
+import { AuthService } from '../auth/auth.service';
+import { HttpService } from '../shared';
 
 import { ConfirmationDialogComponent } from '../shared/components/confirmation-dialog';
 import { ResultDialogComponent } from '../shared/components/result-dialog';
 import { SimpleDialogComponent } from '../shared/components/simple-dialog';
+import { httpAllResults, Results } from '../shared/models/results';
+import { User } from '../shared/models/user';
 import { TimeService } from '../shared/services/time-service.service';
 import { resultService } from './result-service.service';
 
@@ -33,14 +38,23 @@ export class TestComponent{
   stage!: number;
 
   mistakes!: number;
+  
+  login!: string;
 
   constructor(
     private _dialog: MatDialog,
     private _result: resultService,
-    public timer: TimeService
+    public timer: TimeService,
+    public httpService: HttpService,
+    private _auth: AuthService
   ) {
     this.buildSequence();
     this.buildMatrix();
+
+    if (sessionStorage.getItem('auth') != null) {
+      //получение информации о пользователе
+      this._auth.httpGetUser().subscribe(val => this.login = val.login).unsubscribe();
+    }
   }
 
   buildSequence(): void {
@@ -161,6 +175,10 @@ export class TestComponent{
       this.timer.time
     );
 
+    // Отправка результатов в БД
+    if(this.login)
+      this.sendResult(result)
+
     this._dialog.open(ResultDialogComponent, {
       data: {
         title: 'Результаты',
@@ -170,5 +188,18 @@ export class TestComponent{
       },
       width: '50%',
     });
+  }
+
+  sendResult(result: Results): void {
+    var res: httpAllResults = {
+      login: this.login,
+      time: this.timer.time,
+      mistakes: this.mistakes,
+      date: new Date().toISOString(),
+      efficiency: result.efficiency,
+      workability: result.workability,
+      sustainability: result.sustainability
+    }
+    this.httpService.sendResult(res);
   }
 }

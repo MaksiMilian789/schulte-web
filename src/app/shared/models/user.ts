@@ -7,3 +7,7 @@ export interface User {
   login: string;
   role: role;
 }
+
+export interface httpLogin {
+  token: string;
+}

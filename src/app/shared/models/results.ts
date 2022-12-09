@@ -7,12 +7,12 @@ export interface Results {
 export interface httpResults extends Results {
   time: number;
   mistakes: number;
-  date: Date;
+  date: string;
 }
 
 export interface httpAllResults extends Results {
-  fio: string;
+  login: string;
   time: number;
   mistakes: number;
-  date: Date;
+  date: string;
 }

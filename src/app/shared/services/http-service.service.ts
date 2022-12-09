@@ -12,7 +12,7 @@ export class HttpService {
   /**
    * Отправление результатов теста в БД
    */
-  public sendResult(result: httpResults): Observable<void> {
+  public sendResult(result: httpAllResults): Observable<void> {
     /*return this._http.post(
       `${this._baseUrl}/Users/${idUser}/group/${idGroup}`,
       {}
@@ -30,28 +30,28 @@ export class HttpService {
     );*/
     let res: httpAllResults[] = [
       {
-        fio: 'maksim',
+        login: 'maksim',
         time: 50,
         mistakes: 1,
-        date: new Date(),
+        date: new Date().toISOString(),
         efficiency: 5,
         workability: 1,
         sustainability: 1,
       },
       {
-        fio: 'elya',
+        login: 'elya',
         time: 30,
         mistakes: 0,
-        date: new Date(),
+        date: new Date().toISOString(),
         efficiency: 7,
         workability: 1.2,
         sustainability: 0.5,
       },
       {
-        fio: 'maksim',
+        login: 'maksim',
         time: 999,
         mistakes: 33,
-        date: new Date(),
+        date: new Date().toISOString(),
         efficiency: 5,
         workability: 1,
         sustainability: 77,
@@ -72,7 +72,7 @@ export class HttpService {
       {
         time: 50,
         mistakes: 1,
-        date: new Date(),
+        date: new Date().toISOString(),
         efficiency: 0,
         workability: 1,
         sustainability: 1,
@@ -80,12 +80,34 @@ export class HttpService {
       {
         time: 999,
         mistakes: 33,
-        date: new Date(),
+        date: new Date().toISOString(),
         efficiency: 5,
         workability: 1,
         sustainability: 77,
       },
     ];
     return of(res);
+  }
+
+  /**
+   * Получение инструкции
+   */
+   public getInstruction(): Observable<string> {
+    /*return this._http.get(
+      `${this._baseUrl}/Users/${idUser}/group/${idGroup}`,
+      {}
+    );*/
+    return of();
+  }
+
+  /**
+   * Получение инструкции
+   */
+   public sendInstruction(text: string): Observable<void> {
+    /*return this._http.post(
+      `${this._baseUrl}/Users/${idUser}/group/${idGroup}`,
+      {}
+    );*/
+    return of();
   }
 }

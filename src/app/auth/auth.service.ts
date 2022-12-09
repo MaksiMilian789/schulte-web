@@ -1,7 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { User } from '../shared/models/user';
+import { httpLogin, User } from '../shared/models/user';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +10,9 @@ import { User } from '../shared/models/user';
 export class AuthService {
   isLoggedIn: boolean = false;
 
-  constructor(private _router: Router) {
+  _baseUrl: string = "localhost:8080"
+
+  constructor(private _router: Router, private _http: HttpClient) {
     if (sessionStorage.getItem('auth') != null) {
       this.isLoggedIn = true;
     }
@@ -26,12 +29,11 @@ export class AuthService {
     }
   }
 
-  httpAuth(login: string, password: string): boolean {
-    /*return this._http.post(
-      `${this._baseUrl}/Users/${idUser}/group/${idGroup}`,
-      {}
-    );*/
-    return true;
+  httpAuth(login: string, password: string): Observable<httpLogin> {
+    return this._http.post<httpLogin>(`${this._baseUrl}/login`, {
+      login: login,
+      password: password
+    });
   }
 
   httpGetUser(): Observable<User> {
