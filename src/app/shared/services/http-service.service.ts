@@ -63,8 +63,7 @@ export class HttpService {
    */
   public getInstruction(): Observable<string> {
     let headers = new HttpHeaders({
-      'Access-Control-Allow-Origin': '*',
-      Authorization: sessionStorage.getItem('jwt') as string
+      'Access-Control-Allow-Origin': '*'
     });
     return this._http.get(`${this._baseUrl}/getInstruction`, {responseType: "text", headers: headers});
   }

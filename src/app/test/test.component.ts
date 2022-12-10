@@ -179,7 +179,8 @@ export class TestComponent {
     );
 
     // Отправка результатов в БД
-    this.sendResult(result);
+    if(this.login)
+      this.sendResult(result);
 
     this._dialog.open(ResultDialogComponent, {
       data: {
@@ -202,6 +203,7 @@ export class TestComponent {
       workability: result.workability,
       sustainability: result.sustainability,
     };
+
     this._httpService.sendResult(res).subscribe({
       complete: () => {
         this._snackbar.open('Ваши результаты сохранены в базу данных');
