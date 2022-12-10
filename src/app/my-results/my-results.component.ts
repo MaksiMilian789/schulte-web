@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   Component,
   OnDestroy,
   OnInit,
@@ -21,7 +20,7 @@ import { HttpService } from '../shared/services/http-service.service';
   styleUrls: ['./my-results.component.scss'],
   animations: [showHideAnimation],
 })
-export class MyResultsComponent implements OnInit, AfterViewInit, OnDestroy {
+export class MyResultsComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -52,12 +51,6 @@ export class MyResultsComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe((filterValue) => this.applyFilter(filterValue));
   }
 
-  ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-    this.paginator._intl.itemsPerPageLabel = 'Количество элементов на странице';
-  }
-
   ngOnInit(): void {
     this.loadData();
   }
@@ -74,6 +67,7 @@ export class MyResultsComponent implements OnInit, AfterViewInit, OnDestroy {
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
+        this.paginator._intl.itemsPerPageLabel = 'Количество элементов на странице';
       });
   }
 

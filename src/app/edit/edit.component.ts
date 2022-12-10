@@ -22,7 +22,13 @@ export class EditComponent implements OnInit {
   }
 
   saveInstruction(): void {
-    this._httpService.sendInstruction(this.instruction).subscribe();
-    this._snackbar.open("Инструкция сохранена");
+    this._httpService.sendInstruction(this.instruction).subscribe({
+      complete: () => {
+        this._snackbar.open('Инструкция сохранена');
+      },
+      error: () => {
+        this._snackbar.open('Ошибка при сохранении инструкции');
+      },
+    });
   }
 }

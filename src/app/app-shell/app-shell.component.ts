@@ -15,7 +15,7 @@ export class AppShellComponent {
 
   constructor(private _auth: AuthService) {
     if (sessionStorage.getItem('auth') != null) {
-      //получение информации о пользователе
+      // Получение информации о пользователе
       this.user$ = this._auth.httpGetUser(sessionStorage.getItem('auth') as string);
       this.userLogin = sessionStorage.getItem('auth') as string;
     }

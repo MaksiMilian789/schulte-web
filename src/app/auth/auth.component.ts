@@ -39,25 +39,7 @@ export class AuthComponent {
       return;
     }
 
-    //проверка на логин/пароль через сервис (с оповещением о неверном через snackbar)
+    // Проверка на логин/пароль через сервис (с оповещением о неверном через snackbar)
     this._auth.login(this.form.value.login, this.form.value.password);
-
-    /*const formState: { login: string; password: string } = this.form.value;
-    this.form.disable();
-    this.authService
-      .auth(formState.login, formState.password)
-      .pipe(finalize(() => this.form.enable()))
-      .subscribe({
-        next: () => {
-          this.router.navigate(['/']);
-        },
-        error: (error) => {
-          if (error instanceof HttpErrorResponse && error.status == 401) {
-            this.snackbar.open('Неверный логин или пароль.');
-          } else {
-            throw error;
-          }
-        },
-      });*/
   }
 }

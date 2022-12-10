@@ -7,7 +7,7 @@ import { Results } from '../shared/models/results';
 export class resultService {
   constructor() {}
 
-  calcResult(timeStage: number[], mistakes: number, time: number): Results {
+  calcResult(timeStage: number[]): Results {
     let efficiency = this.calcEfficiency(timeStage);
     let workability = timeStage[0] / efficiency;
     let sustainability = timeStage[3] / efficiency;
@@ -17,8 +17,6 @@ export class resultService {
       workability: workability,
       sustainability: sustainability,
     };
-
-    //TODO: занесение результатов в БД по http (timeStage, mistakes, time)
 
     return res;
   }

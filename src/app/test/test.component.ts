@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 import { HttpService } from '../shared';
@@ -45,7 +47,9 @@ export class TestComponent {
     private _dialog: MatDialog,
     private _result: resultService,
     public timer: TimeService,
-    private _httpService: HttpService
+    private _httpService: HttpService,
+    private _snackbar: MatSnackBar,
+    private _router: Router,
   ) {
     this.buildSequence();
     this.buildMatrix();
@@ -54,6 +58,11 @@ export class TestComponent {
       //получение информации о пользователе
       this.login = sessionStorage.getItem('auth') as string;
     }
+
+    _router.events.subscribe((val) => {
+      this.timer.isRunning = false;
+      this.timer.stopTimer();
+  });
   }
 
   buildSequence(): void {
@@ -166,9 +175,7 @@ export class TestComponent {
 
   openResults(): void {
     let result = this._result.calcResult(
-      this.timer.timeStage,
-      this.mistakes,
-      this.timer.time
+      this.timer.timeStage
     );
 
     // Отправка результатов в БД
@@ -195,6 +202,10 @@ export class TestComponent {
       workability: result.workability,
       sustainability: result.sustainability,
     };
-    this._httpService.sendResult(res).subscribe();
+    this._httpService.sendResult(res).subscribe({
+      complete: () => {
+        this._snackbar.open('Ваши результаты сохранены в базу данных');
+      }
+    });
   }
 }

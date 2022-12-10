@@ -20,19 +20,17 @@ export class RegistrationService {
   ) {}
 
   registration(login: string, password: string): void {
-    this.httpReg(login, password).subscribe(
-      (res) => {
-        if (this.httpReg(login, password)) {
-          this._router.navigate(['/auth']);
-          this.registrationMessage.next(true);
-          this._snackbar.open('Регистрация успешна');
-        }
+    this.httpReg(login, password).subscribe({
+      complete: () => {
+        this._router.navigate(['/auth']);
+        this.registrationMessage.next(true);
+        this._snackbar.open('Регистрация успешна');
       },
-      (err) => {
+      error: () => {
         this.registrationMessage.next(false);
         this._snackbar.open('Такой логин уже существует');
-      }
-    );
+      },
+    });
   }
 
   httpReg(login: string, password: string): Observable<void> {

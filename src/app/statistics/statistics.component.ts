@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   Component,
   OnDestroy,
   OnInit,
@@ -12,7 +11,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subject, debounceTime, distinctUntilChanged, takeUntil } from 'rxjs';
 import { showHideAnimation } from '../shared/animations/showHide';
-import { httpAllResults, httpResults } from '../shared/models/results';
+import { httpAllResults } from '../shared/models/results';
 import { HttpService } from '../shared/services/http-service.service';
 
 @Component({
@@ -21,7 +20,7 @@ import { HttpService } from '../shared/services/http-service.service';
   styleUrls: ['./statistics.component.scss'],
   animations: [showHideAnimation],
 })
-export class StatisticsComponent implements OnInit, AfterViewInit, OnDestroy {
+export class StatisticsComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -53,12 +52,6 @@ export class StatisticsComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe((filterValue) => this.applyFilter(filterValue));
   }
 
-  ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-    this.paginator._intl.itemsPerPageLabel = 'Количество элементов на странице';
-  }
-
   ngOnInit(): void {
     this.loadData();
   }
@@ -75,6 +68,7 @@ export class StatisticsComponent implements OnInit, AfterViewInit, OnDestroy {
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
+        this.paginator._intl.itemsPerPageLabel = 'Количество элементов на странице';
       });
   }
 
